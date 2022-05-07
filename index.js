@@ -1,12 +1,60 @@
-let dias = ["lunes","martes","miercoles","jueves","viernes","sabado","domingo"]
-;
 
-for (i = 0; i <= dias.length - 1; i++ ){
-    document.write(dias [i]+ "<br>");
-   }
 
-   if ( dias == "lunes","martes","miercoles","jueves","viernes","sabado","domingo") 
-    
+let Comida1= prompt ("Ingresa una comida que te guste")
+
+let Comida2 = prompt ("Ingresa una comida que no te guste")
+
+
+function Almuerzo(Comida1,Comida2)
 {
-    alert("DIAS DE LA SEMANA")
+if (Comida1==="pizza" && Comida2==="brocoli")
+{
+
+return true
 }
+else 
+{
+return false;
+}
+}
+
+
+let resultado= Almuerzo(Comida1,Comida2)
+
+if(resultado)
+{
+alert ("Enviar comida")
+}
+
+else
+{
+alert  ("No se enviara la comida")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
