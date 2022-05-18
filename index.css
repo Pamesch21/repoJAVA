@@ -1,0 +1,60 @@
+/* No CSS *//*# sourceMappingURL=index.css.map */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; }
+/*BODY*/
+body{
+    background: linear-gradient(to right,#E8FEF9,#00A98F,#005544); 
+    width: 100;
+    height: 100;
+    position: absolute;
+    
+}
+
+.sectionuno{
+    background-color: white;
+    padding: 10%;
+  
+}
+
+.titulo{
+    text-align: center;
+    animation-duration: 2s;
+    animation-name: animate__zoomInDown;
+    font-family:'Courier New', Courier, monospace
+
+}
+@keyframes animate__zoomInDown{
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+html {
+    min-height: 100%;
+}
+
+
+/*FOOTER*/
+footer{
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 50px;
+   background-color: #5791b3;
+   padding:0;
+   text-align: center;
+   border-radius: 0px;
+   border-radius: 0px;
+   background: #ffffff;
+   box-shadow:  -5px -5px 10px #d9d9d9,
+                5px 5px 10px #ffffff;
+
+
+   
+}
+
