@@ -1,4 +1,6 @@
 
+
+
 document.getElementById("mi_btn").addEventListener("click",clic,true);
 function clic(){
     alert("Gracias por visitarnos!")
@@ -81,3 +83,24 @@ function reservas (){
         }
         
         console.log(arrayRestaurantes);
+
+
+        let nombre=prompt ("ingresa tu nombre");
+localStorage.setItem("NOMBREDEUSUARIO" , nombre);
+const h1 =document.createElement("h1");
+h1.innerHTML=`Bienvenido,${nombre}`;
+document.body.appendChild(h1);
+
+
+      const parrafo = document.querySelector('#parrafo')
+      parrafo.textContent= 'Descuentos exclusivos'
+      
+document.getElementById("mi_descuento").addEventListener("click",clic,true);
+function clic(){
+    alert("PROMO APLICADA!")
+}
+
+/*json */
+var islas ='{"adulto":"2", "niños":"5", "reservas":"1"}';
+var objetoJS = JSON.parse(islas);
+console.log(islas);
