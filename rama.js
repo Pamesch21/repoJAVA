@@ -1,13 +1,56 @@
 
 
+/*LIBRERIAS*/ 
+init();
 
-document.getElementById("mi_btn").addEventListener("click",clic,true);
-function clic(){
-    alert("Gracias por visitarnos!")
+function init()
+{
+    saludarconSweetAlert();
 }
 
-function reservas (){
 
+function saludarconSweetAlert()
+{
+    const btn = document.getElementById("btnSweet")
+    btn.addEventListener("click",()=>{
+
+Swal.fire({
+    title: 'Reserva efectuada con exito',
+ 
+    icon: 'success',
+
+    })
+
+})
+ }
+
+ boton();
+
+function boton()
+{
+    saludarconboton();
+}
+
+
+function  saludarconboton()
+{
+    const btn = document.getElementById("mi_descuento")
+    btn.addEventListener("click",()=>{
+
+Swal.fire({
+    title: 'PROMOCION APLICADA',
+ 
+    icon: 'success',
+
+    })
+
+})
+ }
+
+
+
+ function reservas (){
+ 
     pasaje= prompt("Quieres realizar tu reserva?");
     if (pasaje =="si"){
         alert("Continuemos")
@@ -92,15 +135,11 @@ h1.innerHTML=`Bienvenido,${nombre}`;
 document.body.appendChild(h1);
 
 
-      const parrafo = document.querySelector('#parrafo')
-      parrafo.textContent= 'Descuentos exclusivos'
-      
-document.getElementById("mi_descuento").addEventListener("click",clic,true);
-function clic(){
-    alert("PROMO APLICADA!")
-}
 
 /*json */
 var islas ='{"adulto":"2", "niños":"5", "reservas":"1"}';
 var objetoJS = JSON.parse(islas);
 console.log(islas);
+
+
+
