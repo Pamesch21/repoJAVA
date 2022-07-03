@@ -1,46 +1,192 @@
-const input = document.querySelector('input');
-const button = document.querySelector('button');
-const pokemonContainer = document.querySelector('pokemon-container');
- 
 
 
-button.addEventListener('click', (e)=> {
-e.preventDefault();
-traerPokemon()
-}
-)
 
- 
-function traerPokemon () {
-    fetch ('https://pokeapi.co/api/v2/pokeathlon-stat/{id or name}/')
-    .then( (res)=> res.json())
-    .then ((data) => {
-        crearPokemon(data);
+const baseDeDatos = [
+    {
+        id: 1,
+        nombre: 'Bolso de mano',
+        precio: 500,
+    
+    },
+    {
+        id: 2,
+        nombre: 'Valija 10kg',
+        precio: 1500,
+    
+    },
+    {
+        id: 3,
+        nombre: 'Valija 20kg',
+        precio: 2500,
+     
+    },
+    
+
+    {
+        id: 4,
+        nombre: 'Seleccionar asientos',
+        precio: 300,
+      
+    },
+
+    {
+        id: 5,
+        nombre: 'Embarque prioritario',
+        precio: 600,
+      
+    },
+    {
+        id: 6,
+        nombre: 'Equipaje pesado',
+        precio: 4100,
+      
+    }
+
+];
+
+let carrito = [];
+const divisa = '$';
+const DOMitems = document.querySelector('#items');
+const DOMcarrito = document.querySelector('#carrito');
+const DOMtotal = document.querySelector('#total');
+const DOMbotonVaciar = document.querySelector('#boton-vaciar');
+
+// Funciones
+
+/**
+
+ */
+function renderizarProductos() {
+    baseDeDatos.forEach((info) => {
+        // Estructura
+        const miNodo = document.createElement('div');
+        miNodo.classList.add('card', 'col-sm-4');
+        // Body
+        const miNodoCardBody = document.createElement('div');
+        miNodoCardBody.classList.add('card-body');
+        // Titulo
+        const miNodoTitle = document.createElement('h5');
+        miNodoTitle.classList.add('card-title');
+        miNodoTitle.textContent = info.nombre;
+       
+        // Precio
+        const miNodoPrecio = document.createElement('p');
+        miNodoPrecio.classList.add('card-text');
+        miNodoPrecio.textContent = `${info.precio}${divisa}`;
+        // Boton 
+        const miNodoBoton = document.createElement('button');
+        miNodoBoton.classList.add('btn', 'btn-primary');
+        miNodoBoton.textContent = '+';
+        miNodoBoton.setAttribute('marcador', info.id);
+        miNodoBoton.addEventListener('click', anyadirProductoAlCarrito);
+        // Insertamos
+
+        miNodoCardBody.appendChild(miNodoTitle);
+        miNodoCardBody.appendChild(miNodoPrecio);
+        miNodoCardBody.appendChild(miNodoBoton);
+        miNodo.appendChild(miNodoCardBody);
+        DOMitems.appendChild(miNodo);
     });
 }
 
-function crearPokemon(pokemon) {
-const img = document.createElement('img');
-img.src = pokemon.sprites.front_default;
 
-const h3 = document.createElement('h3');
-h3.textContent =pokemon.name;
+function anyadirProductoAlCarrito(evento) {
+    
+    carrito.push(evento.target.getAttribute('marcador'))
 
-const div = document.createElement('div');
-div.appendChild(img);
-div.appendChild(h3);
+    renderizarCarrito();
 
-pokemonContainer.appendChild(div);
 }
 
 
-traerPokemon();
+function renderizarCarrito() {
+
+    DOMcarrito.textContent = '';
+ 
+    const carritoSinDuplicados = [...new Set(carrito)];
+
+    carritoSinDuplicados.forEach((item) => {
+    
+        const miItem = baseDeDatos.filter((itemBaseDatos) => {
+   
+            return itemBaseDatos.id === parseInt(item);
+        });
+       
+       const numeroUnidadesItem = carrito.reduce((total, itemId) => {
+          
+            return itemId === item ? total += 1 : total;
+        }, 0);
+    
+        const miNodo = document.createElement('li');
+        miNodo.classList.add('list-group-item', 'text-right', 'mx-2');
+        miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0].nombre} - ${miItem[0].precio}${divisa}`;
+       
+        const miBoton = document.createElement('button');
+        miBoton.classList.add('btn', 'btn-danger', 'mx-5');
+        miBoton.textContent = 'X';
+        miBoton.style.marginLeft = '1rem';
+        miBoton.dataset.item = item;
+        miBoton.addEventListener('click', borrarItemCarrito);
+       
+        miNodo.appendChild(miBoton);
+        DOMcarrito.appendChild(miNodo);
+    });
+    
+    DOMtotal.textContent = calcularTotal();
+}
+
+function borrarItemCarrito(evento) {
+    
+    const id = evento.target.dataset.item;
+
+    carrito = carrito.filter((carritoId) => {
+        return carritoId !== id;
+    });
+ 
+    renderizarCarrito();
+}
 
 
+function calcularTotal() {
+    // Recorremos el array del carrito 
+    return carrito.reduce((total, item) => {
+        // De cada elemento obtenemos su precio
+        const miItem = baseDeDatos.filter((itemBaseDatos) => {
+            return itemBaseDatos.id === parseInt(item);
+        });
+        // Los sumamos al total
+        return total + miItem[0].precio;
+    }, 0).toFixed(2);
+}
 
 
+function vaciarCarrito() {
 
+    carrito = [];
+ 
+    renderizarCarrito();
+}
 
+// Eventos
+DOMbotonVaciar.addEventListener('click', vaciarCarrito);
+
+// Inicio
+renderizarProductos();
+renderizarCarrito();
+
+/**FETCH */
+document.getElementById('txtBtn').addEventListener('click',cargarTXT);
+
+function cargarTXT() {
+    fetch('terminos.text')
+        .then(function(res){
+            return res.text();
+        }) 
+.then(function(empleados){
+console.log(empleados);
+document.getElementById('resultado').innerHTML = empleados
+})
+}
 
 
 
@@ -111,10 +257,7 @@ Swal.fire({
     const sumar = (num1,num2) => {
         return parseInt(num1) + parseInt (num2);
     }
-    const restar = (num1,num2) => {;
-        return parseInt(num1) - parseInt (num2);
-    }
-    
+   
         alert("Pasaje adulto $1000, Pasaje menores de 12 años $500")
      
         let operacion = prompt ("1:un Adulto,2:Un menor, 3:salir");
@@ -176,7 +319,7 @@ Swal.fire({
         let nombre=prompt ("ingresa tu nombre");
 localStorage.setItem("NOMBREDEUSUARIO" , nombre);
 const h1 =document.createElement("h1");
-h1.innerHTML=`Bienvenido,${nombre}`;
+h1.innerHTML=`,${nombre}`;
 document.body.appendChild(h1);
 
 
